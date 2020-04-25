@@ -4,8 +4,8 @@
 The master branch is protected , which means that to commit changes to the master branch, one would need at least one group member to review the changes to be committed. Before commit to the master branch, please create your own branch and work in your own branch.
 
 ## Data Resources
-World Health Organization (WHO): https://www.who.int/
-DXY.cn. Pneumonia. 2020. http://3g.dxy.cn/newh5/view/pneumonia.
+World Health Organization (WHO): https://www.who.int/DXY.cn.
+Pneumonia. 2020. http://3g.dxy.cn/newh5/view/pneumonia.
 BNO News: https://bnonews.com/index.php/2020/02/the-latest-coronavirus-cases/
 National Health Commission of the People’s Republic of China (NHC): http:://www.nhc.gov.cn/xcs/yqtb/list_gzbd.shtml
 China CDC (CCDC): http:://weekly.chinacdc.cn/news/TrackingtheEpidemic.htm
