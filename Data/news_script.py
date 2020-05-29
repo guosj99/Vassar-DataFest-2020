@@ -54,6 +54,6 @@ df_q_pos = pd.DataFrame(dict_q_pos)
 print(f"Positive sentiment: {pos_count} articles found.")
 
 path = os.getcwd()
-filename = 'NewData.csv'
+filename = input("Enter file name (e.g. data.csv): ")
 df_q_pos.to_csv(filename, index=False)
-print(f"Your csv file has been saved to {path}")
+print(f"Your file {filename} has been saved to {path}.")
