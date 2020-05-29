@@ -36,9 +36,9 @@ print("Wave 5: 2020-05-12")
 print("Wave 6: 2020-05-19")
 
 start_date = input("\nEnter start date (format YYYY-MM-DD): ")
-end_date = input("\nEnter end date (format YYYY-MM-DD): ")
+end_date = input("Enter end date (format YYYY-MM-DD): ")
 min_sent = input("\nEnter minimum sentiment >= -1.0 (Enter -1 for all news): ")
-max_sent = input("\nEnter maximum-sentiment <= 1.0 (Enter 1 for all news): ")
+max_sent = input("Enter maximum-sentiment <= 1.0 (Enter 1 for all news): ")
 
 # create new query object
 q_pos = QueryArticlesIter(
@@ -83,7 +83,7 @@ dict_q_pos = {'date':date_array, 'source':source_array, 'title':title_array, 'se
 
 df_q_pos = pd.DataFrame(dict_q_pos)
 
-print(f"Positive sentiment: {pos_count} articles found.")
+print(f"{pos_count} articles found.")
 
 path = os.getcwd()
 user_file = input("Enter file name: ")
