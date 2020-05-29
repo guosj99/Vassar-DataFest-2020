@@ -69,8 +69,8 @@ count = 0
 
 q_exec = q.execQuery(er, sortBy = "rel", 
         returnInfo = ReturnInfo(articleInfo = ArticleInfoFlags(eventUri = False, 
-        													   authors = False, 
-        													   sentiment = True)),
+        						       authors = False, 
+        						       sentiment = True)),
         maxItems = 999999999)
 
 for article in q_exec:
