@@ -5,18 +5,23 @@ from eventregistry import *
 
 # Get key at http://eventregistry.org/register
 # Look for API key in profile page
-myKey = 'YOUR_API_KEY'
+myKey = '3791b6b8-3d9e-4f63-bc29-021c57b8b23e'
 er = EventRegistry(apiKey = myKey)
+
+start_date = input("Enter start date (format YYYY-MM-DD): ")
+end_date = input("Enter end date (format YYYY-MM-DD): ")
+min_sent = input("Enter minimum sentiment (>= -1.0): ")
+max_sent = input("Enter maximum-sentiment (<= 1.0): ")
 
 # create new query object
 q_pos = QueryArticlesIter(
         keywords = QueryItems.AND(["reopen", "coronavirus"]), # substitute with any keyword(s)
         sourceUri = QueryItems.OR(["cnn.com", "nytimes.com", "msnbc.com"]), # substitute with any url(s)
-        dateStart = "2020-05-05", # substitute with any date range(s)
-        dateEnd = "2020-05-11",
+        dateStart = start_date,
+        dateEnd = end_date,
         keywordsLoc = "body", # "body" or "title"
-        minSentiment = 0, # int in [-1,1]
-        maxSentiment = 1,
+        minSentiment = float(min_sent),
+        maxSentiment = float(max_sent),
         dataType = "news")
 
 date_array = []
@@ -29,7 +34,7 @@ pos_count = 0
 
 q_pos_exec = q_pos.execQuery(er, sortBy = "rel", 
         returnInfo = ReturnInfo(articleInfo = ArticleInfoFlags(body = False, eventUri = False, authors = False, sentiment = True)),
-        maxItems = 999) # change @param maxItems to desired integer
+        maxItems = 999999999) # change @param maxItems to desired integer
 
 for article in q_pos_exec:
     pos_count = pos_count + 1
