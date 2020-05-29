@@ -38,7 +38,7 @@ print("Wave 6: 2020-05-19")
 start_date = input("\nEnter start date (format YYYY-MM-DD): ")
 end_date = input("Enter end date (format YYYY-MM-DD): ")
 min_sent = input("\nEnter minimum sentiment >= -1.0 (Enter -1 for all news): ")
-max_sent = input("Enter maximum-sentiment <= 1.0 (Enter 1 for all news): ")
+max_sent = input("Enter maximum sentiment <= 1.0 (Enter 1 for all news): ")
 
 # print(f"keywords_array: {keywords_array}")
 # print(f"source_pol: {source_pol}")
