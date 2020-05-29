@@ -5,7 +5,7 @@ from eventregistry import *
 
 # Get key at http://eventregistry.org/register
 # Look for API key in profile page
-myKey = '3791b6b8-3d9e-4f63-bc29-021c57b8b23e'
+myKey = 'YOUR_API_KEY'
 er = EventRegistry(apiKey = myKey)
 
 user_keywords = input('\nEnter keyword(s) separated by comma (e.g. "coronavirus, trump"): ')
