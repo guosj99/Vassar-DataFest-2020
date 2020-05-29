@@ -8,15 +8,42 @@ from eventregistry import *
 myKey = '3791b6b8-3d9e-4f63-bc29-021c57b8b23e'
 er = EventRegistry(apiKey = myKey)
 
-start_date = input("Enter start date (format YYYY-MM-DD): ")
-end_date = input("Enter end date (format YYYY-MM-DD): ")
-min_sent = input("Enter minimum sentiment (>= -1.0): ")
-max_sent = input("Enter maximum-sentiment (<= 1.0): ")
+user_keywords = input('\nEnter keyword(s) separated by comma (e.g. "coronavirus, trump"): ')
+keywords_array = [x.strip() for x in user_keywords.split(',')]
+
+mediaLeft = ["cnn.com", "nytimes.com"]
+mediaRight = ["foxnews.com", "nypost.com"]
+mediaMid = ["bloomberg.com"]
+
+print("\nDefaut: \n Left: CNN, The New York Times \n Right: Fox News, New York Post \n Mid: Bloomberg \n")
+user_pol = input('Please enter a political affinity ("left"/"right"/"mid") or url(s) separated by comma: ')
+source_pol = []
+
+if (user_pol == 'left'):
+	source_pol = mediaLeft
+elif (user_pol == 'right'):
+	source_pol = mediaRight
+elif (user_pol == 'mid'):
+	source_pol = mediaMid
+else:
+	source_pol = [x.strip() for x in user_pol.split(',')]
+
+print("\nWave 1: 2020-04-14")
+print("Wave 2: 2020-04-21")
+print("Wave 3: 2020-04-28")
+print("Wave 4: 2020-05-05")
+print("Wave 5: 2020-05-12")
+print("Wave 6: 2020-05-19")
+
+start_date = input("\nEnter start date (format YYYY-MM-DD): ")
+end_date = input("\nEnter end date (format YYYY-MM-DD): ")
+min_sent = input("\nEnter minimum sentiment >= -1.0 (Enter -1 for all news): ")
+max_sent = input("\nEnter maximum-sentiment <= 1.0 (Enter 1 for all news): ")
 
 # create new query object
 q_pos = QueryArticlesIter(
-        keywords = QueryItems.AND(["reopen", "coronavirus"]), # substitute with any keyword(s)
-        sourceUri = QueryItems.OR(["cnn.com", "nytimes.com", "msnbc.com"]), # substitute with any url(s)
+        keywords = QueryItems.AND(keywords_array),
+        sourceUri = QueryItems.OR(source_pol), # substitute with any url(s)
         dateStart = start_date,
         dateEnd = end_date,
         keywordsLoc = "body", # "body" or "title"
@@ -59,6 +86,7 @@ df_q_pos = pd.DataFrame(dict_q_pos)
 print(f"Positive sentiment: {pos_count} articles found.")
 
 path = os.getcwd()
-filename = input("Enter file name (e.g. data.csv): ")
+user_file = input("Enter file name: ")
+filename = (f'{user_file}.csv')
 df_q_pos.to_csv(filename, index=False)
 print(f"Your file {filename} has been saved to {path}.")
