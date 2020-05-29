@@ -29,7 +29,7 @@ pos_count = 0
 
 q_pos_exec = q_pos.execQuery(er, sortBy = "rel", 
         returnInfo = ReturnInfo(articleInfo = ArticleInfoFlags(body = False, eventUri = False, authors = False, sentiment = True)),
-        maxItems = 100) # change @param maxItems to desired integer
+        maxItems = 999) # change @param maxItems to desired integer
 
 for article in q_pos_exec:
     pos_count = pos_count + 1
