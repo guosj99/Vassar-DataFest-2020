@@ -40,10 +40,17 @@ end_date = input("Enter end date (format YYYY-MM-DD): ")
 min_sent = input("\nEnter minimum sentiment >= -1.0 (Enter -1 for all news): ")
 max_sent = input("Enter maximum-sentiment <= 1.0 (Enter 1 for all news): ")
 
+# print(f"keywords_array: {keywords_array}")
+# print(f"source_pol: {source_pol}")
+# print(f"start_date: {start_date}")
+# print(f"end_date: {end_date}")
+# print(f"min_sent: {min_sent}")
+# print(f"max_sent: {max_sent}")
+
 # create new query object
-q_pos = QueryArticlesIter(
+q = QueryArticlesIter(
         keywords = QueryItems.AND(keywords_array),
-        sourceUri = QueryItems.OR(source_pol), # substitute with any url(s)
+        sourceUri = QueryItems.OR(source_pol),
         dateStart = start_date,
         dateEnd = end_date,
         keywordsLoc = "body", # "body" or "title"
@@ -54,18 +61,21 @@ q_pos = QueryArticlesIter(
 date_array = []
 url_array = []
 title_array = []
+body_array = []
 source_array = []
 sentiment_array = []
 
-pos_count = 0
+count = 0
 
-q_pos_exec = q_pos.execQuery(er, sortBy = "rel", 
-        returnInfo = ReturnInfo(articleInfo = ArticleInfoFlags(body = False, eventUri = False, authors = False, sentiment = True)),
-        maxItems = 999999999) # change @param maxItems to desired integer
+q_exec = q.execQuery(er, sortBy = "rel", 
+        returnInfo = ReturnInfo(articleInfo = ArticleInfoFlags(eventUri = False, 
+        													   authors = False, 
+        													   sentiment = True)),
+        maxItems = 999999999)
 
-for article in q_pos_exec:
-    pos_count = pos_count + 1
-    dict_art_pos = {}
+for article in q_exec:
+    count = count + 1
+    dict_art = {}
 
     for k, v in article.items():
         if (k == 'date'):
@@ -74,19 +84,20 @@ for article in q_pos_exec:
             url_array.append(v)
         elif (k == 'title'):
             title_array.append(v)
+        elif (k == 'body'):
+            body_array.append(v)
         elif (k == 'sentiment'):
             sentiment_array.append(v)
         elif (k == 'source'):
             source_array.append(v['title'])
 
-dict_q_pos = {'date':date_array, 'source':source_array, 'title':title_array, 'sentiment':sentiment_array, 'url':url_array}
+dict_q = {'date':date_array, 'source':source_array, 'sentiment':sentiment_array, 'title':title_array, 'body':body_array, 'url':url_array}
+df_q = pd.DataFrame(dict_q)
 
-df_q_pos = pd.DataFrame(dict_q_pos)
-
-print(f"{pos_count} articles found.")
+print(f"{count} articles found.")
 
 path = os.getcwd()
 user_file = input("Enter file name: ")
 filename = (f'{user_file}.csv')
-df_q_pos.to_csv(filename, index=False)
+df_q.to_csv(filename, index=False)
 print(f"Your file {filename} has been saved to {path}.")
