@@ -11,29 +11,22 @@ er = EventRegistry(apiKey = myKey)
 user_keywords = input('\nEnter keyword(s) separated by comma (e.g. "coronavirus, trump"): ')
 keywords_array = [x.strip() for x in user_keywords.split(',')]
 
-mediaLeft = ["cnn.com", "nytimes.com"]
-mediaRight = ["foxnews.com", "nypost.com"]
-mediaMid = ["bloomberg.com"]
+source_default = ["cnn.com", "nytimes.com", "msnbc.com", "foxnews.com", "washingtonpost.com"]
 
-print("\nDefaut: \n Left: CNN, The New York Times \n Right: Fox News, New York Post \n Mid: Bloomberg \n")
-user_pol = input('Please enter a political affinity ("left"/"right"/"mid") or url(s) separated by comma: ')
-source_pol = []
-
-if (user_pol == 'left'):
-	source_pol = mediaLeft
-elif (user_pol == 'right'):
-	source_pol = mediaRight
-elif (user_pol == 'mid'):
-	source_pol = mediaMid
-else:
+print("\nDefaut: CNN, The New York Times, Fox News, MSNBC, The Washington Post")
+user_pol = input('Please enter source url(s) separated by comma (Enter "default" for default sources): ')
+source_pol = source_default
+if (user_pol != 'default'):
 	source_pol = [x.strip() for x in user_pol.split(',')]
 
-print("\nWave 1: 2020-04-14")
+print("\nStart: 2020-04-06")
+print("Wave 1: 2020-04-14")
 print("Wave 2: 2020-04-21")
 print("Wave 3: 2020-04-28")
 print("Wave 4: 2020-05-05")
 print("Wave 5: 2020-05-12")
 print("Wave 6: 2020-05-19")
+print("End: 2020-05-27")
 
 start_date = input("\nEnter start date (format YYYY-MM-DD): ")
 end_date = input("Enter end date (format YYYY-MM-DD): ")
@@ -69,8 +62,8 @@ count = 0
 
 q_exec = q.execQuery(er, sortBy = "rel", 
         returnInfo = ReturnInfo(articleInfo = ArticleInfoFlags(eventUri = False, 
-        						       authors = False, 
-        						       sentiment = True)),
+        													   authors = False, 
+        													   sentiment = True)),
         maxItems = 999999999)
 
 for article in q_exec:
