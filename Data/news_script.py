@@ -5,15 +5,15 @@ from eventregistry import *
 
 # Get key at http://eventregistry.org/register
 # Look for API key in profile page
-myKey = 'YOUR_API_KEY'
+myKey = '3791b6b8-3d9e-4f63-bc29-021c57b8b23e'
 er = EventRegistry(apiKey = myKey)
 
 user_keywords = input('\nEnter keyword(s) separated by comma (e.g. "coronavirus, trump"): ')
 keywords_array = [x.strip() for x in user_keywords.split(',')]
 
-source_default = ["cnn.com", "nytimes.com", "msnbc.com", "foxnews.com", "washingtonpost.com"]
+source_default = ["cnn.com", "nytimes.com", "msnbc.com", "foxnews.com", "wsj.com"]
 
-print("\nDefaut: CNN, The New York Times, Fox News, MSNBC, The Washington Post")
+print("\nDefaut: CNN, The New York Times, Fox News, MSNBC, The Wall Street Journal")
 user_pol = input('Please enter source url(s) separated by comma (Enter "default" for default sources): ')
 source_pol = source_default
 if (user_pol != 'default'):
