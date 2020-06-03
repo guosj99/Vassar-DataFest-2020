@@ -14,6 +14,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
 from sklearn.model_selection import RandomizedSearchCV
+import matplotlib as mpl
+
+mpl.rcParams['figure.dpi']= 300
 
 data = pd.read_csv('covid.csv')
 
@@ -120,18 +123,23 @@ importances = pd.DataFrame.from_dict(feats, orient='index').rename(columns={0: '
 importances = importances.sort_values(by='Gini-importance', ascending=False)
 importances_top = importances.iloc[0:10,]
 
-
-dict = {'x':importances_top.iloc[:,0].values.T, 'y': importances_top.index}
+trump_y = ['ideo_very conservative', 'econ_the government needs to do more',
+           'ideo_conservative', 'ideo_liberal', 'econ_government is doing the right amount',
+           'race_white', 'ideo_moderate', 'deficit_government has spent enough',
+           'race_black', 'ideo_very liberal']
+dict = {'x':importances_top.iloc[:,0].values.T, 'y': trump_y}
 df = pd.DataFrame(dict)
 sns.set()
 plt.figure()
 sns.barplot(x='x', y='y', data=df, color='skyblue')
-plt.title('Features importance in RandomForest Classifier for Trump')
+plt.title('Features importance in RandomForest Classifier for Trump approval')
 plt.xlabel('Relative importance')
-plt.ylabel('feature') 
+plt.ylabel('features') 
+plt.yticks(rotation = 45)
 plt.show()
+plt.savefig('trump.png', transparent=True)
 
-clf_newsom = RandomForestClassifier(n_estimators=50, max_features=0.7, max_depth=7)
+clf_newsom = RandomForestClassifier(n_estimators=100, max_features=0.7, max_depth=7)
 clf_newsom.fit(X_newsom_train, y_newsom_train)
 y_newsom_pred = clf_newsom.predict(X_newsom_test)
 print("Training accuracy of the random forest classifier for Newsom is: ", metrics.accuracy_score(y_newsom_train, clf_newsom.predict(X_newsom_train)))
@@ -146,16 +154,21 @@ importances = pd.DataFrame.from_dict(feats, orient='index').rename(columns={0: '
 importances = importances.sort_values(by='Gini-importance', ascending=False)
 importances_top = importances.iloc[0:10,]
 
-
-dict = {'x':importances_top.iloc[:,0].values.T, 'y': importances_top.index}
+newsom_y = ['ideo_very conservative', 'deficit_government has spent enough',
+            'ideo_conservative', 'corona_very worried', 'corona_not worried at all',
+            'ideo_liberal', 'news_most of the time', 'employ_full-time',
+            'econ_government is doing the right amount', 'ideo_moderate']
+dict = {'x':importances_top.iloc[:,0].values.T, 'y': newsom_y}
 df = pd.DataFrame(dict)
 sns.set()
 plt.figure()
 sns.barplot(x='x', y='y', data=df, color='skyblue')
 plt.title('Features importance in RandomForest Classifier for Newsom approval')
 plt.xlabel('Relative importance')
-plt.ylabel('feature') 
+plt.ylabel('features') 
+plt.yticks(rotation = 45)
 plt.show()
+plt.savefig('newsom.png', transparent=True)
 
 clf_cuomo = RandomForestClassifier(n_estimators=150, max_features=0.55, max_depth=7)
 clf_cuomo.fit(X_cuomo_train, y_cuomo_train)
@@ -173,12 +186,18 @@ importances = importances.sort_values(by='Gini-importance', ascending=False)
 importances_top = importances.iloc[0:10,]
 
 
-dict = {'x':importances_top.iloc[:,0].values.T, 'y': importances_top.index}
+cuomo_y = ['ideo_very conservative', 'ideo_conservative', 'deficit_government has spent enough',
+           'corona_not worried at all', 'ideo_liberal', 'corona_very worried', 
+           'econ_government is doing the right amount', 'corona_not too worried',
+           'econ_government needs to do more', 'ideo_moderate']
+dict = {'x':importances_top.iloc[:,0].values.T, 'y': cuomo_y}
 df = pd.DataFrame(dict)
 sns.set()
 plt.figure()
 sns.barplot(x='x', y='y', data=df, color='skyblue')
 plt.title('Features importance in RandomForest Classifier for Cuomo Approval')
 plt.xlabel('Relative importance')
-plt.ylabel('feature') 
+plt.ylabel('features') 
+plt.yticks(rotation = 30)
 plt.show()
+plt.savefig('cuomo.png', transparent=True)
